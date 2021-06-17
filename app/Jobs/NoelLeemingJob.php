@@ -56,6 +56,8 @@ class NoelLeemingJob extends AbstractCheckPricesJob
         $textNode = Arr::get($firstPriceNode->getChildren(), 0);
         $price    = floatval($textNode->text());
 
+        Log::info("Current price: $price");
+
         return $price > $referencePrice;
     }
 }
