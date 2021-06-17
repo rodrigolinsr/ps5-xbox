@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use PHPHtmlParser\Dom;
 
 class NoelLeemingJob extends AbstractCheckPricesJob
@@ -18,11 +19,15 @@ class NoelLeemingJob extends AbstractCheckPricesJob
      */
     public function handle()
     {
+        Log::info('Running check prices for ' . get_called_class());
+
+        Log::info('Checking PS5 prices');
         $ps5Url  = 'https://www.noelleeming.co.nz/shop/games-gaming/playstation/playstation-5/c11905-c2963-cplaystation5-p1.html?sorter=price-desc';
         if ($this->isPriceAbove($ps5Url, 700)) {
             $this->notify('PS5', $ps5Url);
         }
 
+        Log::info('Checking Xbox prices');
         $xboxUrl = 'https://www.noelleeming.co.nz/shop/games-gaming/xbox/xbox-series-x/c11905-cxboxone-cxboxseriesx-p1.html?sorter=price-desc';
         if ($this->isPriceAbove($xboxUrl, 700)) {
             $this->notify('Xbox', $xboxUrl);
