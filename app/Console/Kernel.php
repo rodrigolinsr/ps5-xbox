@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\MicrosoftStoreJob;
 use App\Jobs\MightyApeJob;
 use App\Jobs\NoelLeemingJob;
 use App\Jobs\TheWarehouseJob;
@@ -30,5 +31,6 @@ class Kernel extends ConsoleKernel
         $schedule->job(new NoelLeemingJob())->everyMinute();
         $schedule->job(new MightyApeJob())->everyMinute();
         $schedule->job(new TheWarehouseJob())->everyMinute();
+        $schedule->job(new MicrosoftStoreJob())->everyMinute();
     }
 }

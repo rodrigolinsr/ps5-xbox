@@ -5,25 +5,29 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use PHPHtmlParser\Dom;
 
-class TheWarehouseJob extends AbstractCheckPricesJob
+class MicrosoftStoreJob extends AbstractCheckPricesJob
 {
     protected function getPs5Url(): string
     {
-        return 'https://www.thewarehouse.co.nz/p/ps5-console-%28strictly-1-unit-per-customer%29/R2695122.html';
+        return '';
     }
 
     protected function getXboxUrl(): string
     {
-        return 'https://www.thewarehouse.co.nz/p/xbox-series-x-1tb-console/R2708605.html';
+        return 'https://www.xbox.com/en-nz/configure/8WJ714N3RBTL';
     }
 
     protected function checkStock(string $url, float $referencePrice): bool
     {
+        if (empty($url)) {
+            return false;
+        }
+
         $dom = new Dom();
         $dom->loadFromUrl($url);
 
         /** @var Dom\Node\Collection $status */
-        $status = $dom->find("div[class^='alert-body']");
+        $status = $dom->find("button[aria-label^='Checkout bundle']");
         /** @var Dom\Node\HtmlNode $firstPriceNode */
         $firstPriceNode = Arr::get($status->toArray(), 0);
         /** @var Dom\Node\TextNode $textNode */
