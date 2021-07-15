@@ -1,20 +1,21 @@
 <?php
+
 namespace App\Jobs;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use PHPHtmlParser\Dom;
 
-class MightyApeJob extends AbstractCheckPricesJob
+class TheWarehouseJob  extends AbstractCheckPricesJob
 {
     protected function getPs5Url(): string
     {
-        return 'https://www.mightyape.co.nz/product/sony-playstation-5-console/31675007';
+        return 'https://www.thewarehouse.co.nz/p/ps5-console-%28strictly-1-unit-per-customer%29/R2695122.html';
     }
 
     protected function getXboxUrl(): string
     {
-        return 'https://www.mightyape.co.nz/product/xbox-series-x-console/30472387';
+        return 'https://www.thewarehouse.co.nz/p/xbox-series-x-1tb-console/R2708605.html';
     }
 
     protected function checkStock(string $url, float $referencePrice): bool
@@ -23,7 +24,7 @@ class MightyApeJob extends AbstractCheckPricesJob
         $dom->loadFromUrl($url);
 
         /** @var Dom\Node\Collection $status */
-        $status = $dom->find("div[class^='status']");
+        $status = $dom->find("div[class^='alert-body']");
         /** @var Dom\Node\HtmlNode $firstPriceNode */
         $firstPriceNode = Arr::get($status->toArray(), 0);
         /** @var Dom\Node\TextNode $textNode */
@@ -32,6 +33,6 @@ class MightyApeJob extends AbstractCheckPricesJob
 
         Log::info("Current status: $status");
 
-        return strtolower($status) !== 'unavailable';
+        return strtolower($status) !== 'out of stock';
     }
 }
