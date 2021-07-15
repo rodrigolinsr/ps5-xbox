@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "illuminate/mail": "^8.47",
         "laravel/lumen-framework": "^8.0",
+        "laravel/tinker": "^2.6",
         "paquettg/php-html-parser": "^3.1",
         "spatie/data-transfer-object": "^3.3"
     },

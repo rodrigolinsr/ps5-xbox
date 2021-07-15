@@ -8,42 +8,19 @@ use PHPHtmlParser\Dom;
 
 class NoelLeemingJob extends AbstractCheckPricesJob
 {
-    /**
-     * @throws \PHPHtmlParser\Exceptions\ChildNotFoundException
-     * @throws \PHPHtmlParser\Exceptions\CircularException
-     * @throws \PHPHtmlParser\Exceptions\StrictException
-     * @throws \Psr\Http\Client\ClientExceptionInterface
-     * @throws \PHPHtmlParser\Exceptions\NotLoadedException
-     * @throws \PHPHtmlParser\Exceptions\ContentLengthException
-     * @throws \PHPHtmlParser\Exceptions\LogicalException
-     */
-    public function handle()
+    protected function getPs5Url(): string
     {
-        Log::info('Running check prices for ' . get_called_class());
-
-        Log::info('Checking PS5 prices');
-        $ps5Url  = 'https://www.noelleeming.co.nz/shop/games-gaming/playstation/playstation-5/c11905-c2963-cplaystation5-p1.html?sorter=price-desc';
-        if ($this->isPriceAbove($ps5Url, 700)) {
-            $this->notify('PS5', $ps5Url);
-        }
-
-        Log::info('Checking Xbox prices');
-        $xboxUrl = 'https://www.noelleeming.co.nz/shop/games-gaming/xbox/xbox-series-x/c11905-cxboxone-cxboxseriesx-p1.html?sorter=price-desc';
-        if ($this->isPriceAbove($xboxUrl, 700)) {
-            $this->notify('Xbox', $xboxUrl);
-        }
+        return 'https://www.noelleeming.co.nz/shop/games-gaming/playstation/playstation-5/' .
+            'c11905-c2963-cplaystation5-p1.html?sorter=price-desc';
     }
 
-    /**
-     * @throws \PHPHtmlParser\Exceptions\ChildNotFoundException
-     * @throws \PHPHtmlParser\Exceptions\CircularException
-     * @throws \PHPHtmlParser\Exceptions\ContentLengthException
-     * @throws \PHPHtmlParser\Exceptions\LogicalException
-     * @throws \PHPHtmlParser\Exceptions\NotLoadedException
-     * @throws \PHPHtmlParser\Exceptions\StrictException
-     * @throws \Psr\Http\Client\ClientExceptionInterface
-     */
-    public function isPriceAbove(string $url, float $referencePrice)
+    protected function getXboxUrl(): string
+    {
+        return 'https://www.noelleeming.co.nz/shop/games-gaming/xbox/xbox-series-x/' .
+            'c11905-cxboxone-cxboxseriesx-p1.html?sorter=price-desc';
+    }
+
+    protected function checkStock(string $url, float $referencePrice): bool
     {
         $dom = new Dom();
         $dom->loadFromUrl($url);
