@@ -2,9 +2,11 @@
 
 namespace App\Console;
 
+use App\Jobs\JBHiFiJob;
 use App\Jobs\MicrosoftStoreJob;
 use App\Jobs\MightyApeJob;
 use App\Jobs\NoelLeemingJob;
+use App\Jobs\PBTechJob;
 use App\Jobs\TheWarehouseJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
@@ -32,5 +34,7 @@ class Kernel extends ConsoleKernel
         $schedule->job(new MightyApeJob())->everyMinute();
         $schedule->job(new TheWarehouseJob())->everyMinute();
         $schedule->job(new MicrosoftStoreJob())->everyMinute();
+        $schedule->job(new PBTechJob())->everyMinute();
+        $schedule->job(new JBHiFiJob())->everyMinute();
     }
 }
