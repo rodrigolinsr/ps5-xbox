@@ -13,6 +13,8 @@ class JBHiFiJob extends AbstractCheckPricesJob
 
     protected function getXboxUrl(): string
     {
+        return '';
+
         return 'https://www.jbhifi.co.nz/features/gaming/xbox/xbox-series-x/';
     }
 
