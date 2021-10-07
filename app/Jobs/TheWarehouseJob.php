@@ -32,6 +32,9 @@ class TheWarehouseJob extends AbstractCheckPricesJob
 
         Log::info("Current status: $status");
 
-        return strtolower($status) !== 'out of stock';
+        $toLowerStatus = strtolower($status);
+
+        return $toLowerStatus !== 'out of stock'
+            && $toLowerStatus !== 'in-store only';
     }
 }
