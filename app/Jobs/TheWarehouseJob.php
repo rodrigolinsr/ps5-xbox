@@ -26,15 +26,20 @@ class TheWarehouseJob extends AbstractCheckPricesJob
         $status = $dom->find("div[class^='alert-body']");
         /** @var Dom\Node\HtmlNode $firstPriceNode */
         $firstPriceNode = Arr::get($status->toArray(), 0);
-        /** @var Dom\Node\TextNode $textNode */
-        $textNode = Arr::get($firstPriceNode->getChildren(), 0);
-        $status   = trim($textNode->text());
 
-        Log::info("Current status: $status");
+        if ($firstPriceNode) {
+            /** @var Dom\Node\TextNode $textNode */
+            $textNode   = Arr::get($firstPriceNode->getChildren(), 0);
+            $statusText = trim($textNode->text());
 
-        $toLowerStatus = strtolower($status);
+            Log::info("Current status: $statusText");
 
-        return $toLowerStatus !== 'out of stock'
-            && $toLowerStatus !== 'in-store only';
+            $toLowerStatus = strtolower($status);
+
+            return $toLowerStatus !== 'out of stock'
+                && $toLowerStatus !== 'in-store only';
+        }
+
+        return false;
     }
 }
