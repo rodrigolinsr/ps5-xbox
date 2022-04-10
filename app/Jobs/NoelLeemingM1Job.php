@@ -28,6 +28,8 @@ class NoelLeemingM1Job extends AbstractCheckPricesJob
         $dom->loadFromUrl($url);
 
         $productList = $dom->find("div[class^='product-tile']");
+
+        Log::info("Current count: {$productList->count()}");
         
         return $productList->count() > 5;
     }
