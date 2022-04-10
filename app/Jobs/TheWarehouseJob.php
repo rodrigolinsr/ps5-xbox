@@ -19,6 +19,10 @@ class TheWarehouseJob extends AbstractCheckPricesJob
 
     protected function checkStock(string $url, float $referencePrice): bool
     {
+        if (empty($url)) {
+            return false;
+        }
+
         $dom = new Dom();
         $dom->loadFromUrl($url);
 
