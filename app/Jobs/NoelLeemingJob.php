@@ -10,14 +10,12 @@ class NoelLeemingJob extends AbstractCheckPricesJob
 {
     protected function getPs5Url(): string
     {
-        return 'https://www.noelleeming.co.nz/shop/games-gaming/playstation/playstation-5/' .
-            'c11905-c2963-cplaystation5-p1.html?sorter=price-desc';
+        return 'https://www.noelleeming.co.nz/c/gaming/playstation-5';
     }
 
     protected function getXboxUrl(): string
     {
-        return 'https://www.noelleeming.co.nz/shop/games-gaming/xbox/xbox-series-x/' .
-            'c11905-cxboxone-cxboxseriesx-p1.html?sorter=price-desc';
+        return 'https://www.noelleeming.co.nz/c/gaming/xbox-series-xs';
     }
 
     protected function checkStock(string $url, float $referencePrice): bool
