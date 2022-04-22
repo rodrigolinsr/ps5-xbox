@@ -27,10 +27,18 @@ class NoelLeemingM1Job extends AbstractCheckPricesJob
         $dom = new Dom();
         $dom->loadFromUrl($url);
 
-        $productList = $dom->find("div[class^='product-tile']");
+        $productList = $dom->find("div[class^='product-grid-wrapper']");
 
-        Log::info("Current count: {$productList->count()}");
-        
-        return $productList->count() > 5;
+        /** @var Dom\Node\Collection $links */
+        $links = $productList->find("a[class^='link text-emphasized']");
+
+        /** @var Dom\Node\HtmlNode $link */
+        foreach ($links as $link) {
+            if (Str::contains($link->text, 'Apple 14inch')) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
