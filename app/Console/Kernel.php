@@ -6,7 +6,6 @@ use App\Jobs\JBHiFiJob;
 use App\Jobs\MicrosoftStoreJob;
 use App\Jobs\MightyApeJob;
 use App\Jobs\NoelLeemingJob;
-use App\Jobs\NoelLeemingM1Job;
 use App\Jobs\PBTechJob;
 use App\Jobs\TheWarehouseJob;
 use Illuminate\Console\Scheduling\Schedule;
@@ -31,7 +30,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new NoelLeemingM1Job())->everyMinute();
         $schedule->job(new NoelLeemingJob())->everyMinute();
         $schedule->job(new MightyApeJob())->everyMinute();
         $schedule->job(new TheWarehouseJob())->everyMinute();
