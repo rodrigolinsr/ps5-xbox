@@ -15,9 +15,12 @@ class Mailer
             <p>Check the URL <a href='$url'>$url</a></p>
         ";
 
-        Mail::html($message, function (Message $message) use ($product, $mailTo) {
-            $message->to($mailTo)
-                ->subject("Possible stock of $product available");
+	Mail::html($message, function (Message $message) use ($product, $mailTo) {
+            $message->subject("Possible stock of $product available");
+            $mailsTo = explode(',', $mailTo);
+            foreach ($mailsTo as $mailTo) {
+                $message->to($mailTo);
+            }
         });
     }
 }

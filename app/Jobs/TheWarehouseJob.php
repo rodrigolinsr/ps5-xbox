@@ -36,12 +36,13 @@ class TheWarehouseJob extends AbstractCheckPricesJob
             $textNode   = Arr::get($firstPriceNode->getChildren(), 0);
             $statusText = trim($textNode->text());
 
-            Log::info("Current status: $statusText");
+            Log::info("The Warehouse Current status: $statusText");
 
             $toLowerStatus = strtolower($statusText);
 
             return $toLowerStatus !== 'out of stock'
-                && $toLowerStatus !== 'in-store only';
+                && $toLowerStatus !== 'in-store only'
+                && $toLowerStatus !== 'online out of stock';
         }
 
         return false;
